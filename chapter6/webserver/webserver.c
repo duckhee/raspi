@@ -40,10 +40,10 @@ int main(int argc, char **argv)
 	}
 
 	//set port os
-	memset(&server_addr, 0, sizeof(serv_addr));
-	server_addr.sin_family = AF_INET;
-	server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-	server_addr.sin_port = (argc != 2)?htons(8000):htons(atoi(argv[1]));
+	memset(&serv_addr, 0, sizeof(serv_addr));
+	serv_addr.sin_family = AF_INET;
+	serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+	serv_addr.sin_port = (argc != 2)?htons(8000):htons(atoi(argv[1]));
 	if(bind(serv_sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) == -1)
 	{
 		perror("bind()");
@@ -74,7 +74,7 @@ int main(int argc, char **argv)
 void *clnt_connection(void *arg)
 {
 	//arg deal int file discript return throw thread
-	int clnt_sock = *((int *)arg). clnt_fd;
+	int clnt_sock = *((int *)arg), clnt_fd;
 	FILE *clnt_read, *clnt_write;
 	char reg_line[BUFSIZ], reg_buf[BUFSIZ];
 	char method[10], ct[BUFSIZ], type[BUFSIZ];
@@ -108,7 +108,7 @@ void *clnt_connection(void *arg)
 		return (void *)NULL;
 	}
 
-	strcpy(file_name, strtok(NULL, " ");
+	strcpy(file_name, strtok(NULL, " "));
 	if(file_name[0] == '/')
 	{
 		for(i = 0, j = 0; i < BUFSIZ; i++)
