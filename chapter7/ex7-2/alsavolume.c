@@ -18,7 +18,7 @@ int main(int argc, char **argv)
     snd_mixer_selem_register(mixer, NULL, NULL);
     snd_mixer_load(mixer);
 
-    snd_mixer_selem_id_allocat(&id);
+    snd_mixer_selem_id_alloca(&id);
 
     snd_mixer_selem_id_set_index(id, mix_index);
     snd_mixer_selem_id_set_name(id, mix_name);
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     snd_mixer_selem_set_playback_volume_all(elem, outVal);
 
     snd_mixer_selem_get_playback_volume_range(elem, &minVal, &maxVal);
-    fpirntf(stderr, "Set volume %i(%d/%d)\n", outVal, maxVal, minVal);
+    fprintf(stderr, "Set volume %i(%d/%d)\n", outVal, maxVal, minVal);
 
     snd_mixer_close(mixer);
 
