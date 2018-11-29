@@ -10,4 +10,4 @@ all:
 	$(CC) -o $(TARGET) $(SRCS) $(CFLAGS)
 
 clean:
-	rm - f$(TARGET)
+	rm - f $(TARGET)
