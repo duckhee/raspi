@@ -19,7 +19,7 @@ static int DrawPoint(int fd, int x, int y, unsigned short color)
 {
     struct fb_var_screeninfo vinfo;
 
-    if(ioctrl(fd, FBIOGET_VSCREENINFO, &vinfo)<0)
+    if(ioctl(fd, FBIOGET_VSCREENINFO, &vinfo)<0)
     {
         perror("Error reading fixed information");
         return -1;
