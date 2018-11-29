@@ -10,7 +10,7 @@
 
 typedef unsigned char ubyte;
 
-unsigned short makepixel((unsigned char r, unsigned char g, unsigned char b))
+unsigned short makepixel(unsigned char r, unsigned char g, unsigned char b)
 {
     return (unsigned short)(((r>>3)<<11) | ((g>>2)<<5) | (b>>3));
 }
@@ -19,7 +19,7 @@ static int DrawPoint(int fd, int x, int y, unsigned short color)
 {
     struct fb_var_screeninfo vinfo;
 
-    if(ioctrl(fb, FBIOGET_VSCREENINFO, &vinfo)<0)
+    if(ioctrl(fd, FBIOGET_VSCREENINFO, &vinfo)<0)
     {
         perror("Error reading fixed information");
         return -1;
@@ -84,7 +84,7 @@ static int DrawFace(int fd, int start_x, int start_y, int end_x, int end_y, unsi
     int x, y, offset;
     struct fb_var_screeninfo vinfo;
 
-    if(ioctl(fd, FBIOGET_VSCREENINOF, &vinfo) < 0)
+    if(ioctl(fd, FBIOGET_VSCREENINFO, &vinfo) < 0)
     {
         perror("Error reading fixed information");
         return -1;
@@ -118,7 +118,7 @@ static int DrawFaceMMAP(int fd, int start_x, int start_y, int end_x, int end_y, 
     struct fb_var_screeninfo vinfo;
     unsigned short *pfd;
 
-    if(ioctl(id, FBIOGET_VSCREENINFO, &vinfo)<0)
+    if(ioctl(fd, FBIOGET_VSCREENINFO, &vinfo)<0)
     {
         perror("Error reading fixed information");
         return -1;
@@ -132,7 +132,7 @@ static int DrawFaceMMAP(int fd, int start_x, int start_y, int end_x, int end_y, 
     {
         vinfo.yres;
     }
-    pfd = (unsigned shor *)mmap(0, vinfo.xres*vinfo.yres*2, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    pfd = (unsigned short *)mmap(0, vinfo.xres*vinfo.yres*2, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
     for(x = start_x; x < end_x; x++)
     {
