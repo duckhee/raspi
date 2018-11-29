@@ -30,7 +30,7 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    if(setupDSP(playbac_handle, BUFSIZ, SND_PCM_FORMAT_S16_LE, FREQ, MODE)<0)
+    if(setupDSP(playback_handle, BUFSIZ, SND_PCM_FORMAT_S16_LE, FREQ, MODE)<0)
     {
         perror("Cound not set output audio device");
         return -1;
@@ -63,4 +63,51 @@ int setupDSP(snd_pcm_t *dev, int buf_size, int format, int sampleRate, int chann
     snd_pcm_uframes_t frames;
     int fragments = FRAGMENT;
     int bits = (formant == SND_PCM_FORMAT_S16_LE) ? 2 : 1;
+
+    if(snd_pcm_hw_params_malloc(&hw_params)<0)
+    {
+        perror("Cound not allocate parameter");
+        return -1;
+    }
+
+    if(snd_pcm_hw_params_any(dev, hw_params)<0)
+    {
+        perror("cound not initialize parameter");
+        return -1;
+    }
+
+    if(snd_pcm_hw_params_set_access(dec, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED)<0)
+    {
+        perror("Cound not set access type");
+        return -1;
+    }
+    if(snd_pcm_hw_params_set_format(dev, hw_params, format)<0)
+    {
+        perror("Cound not set sample format");
+        return -1;
+    }
+
+    if(snd_pcm_hw_params_set_rate_near(dev, hw_params, &samplerate, 0)<0)
+    {
+        perror("Count not set fragments");
+        return -1;
+    }
+
+    frames = (buf_size*fragments)/(channels*bits);
+    if(snd_pcm_hw_params_set_buffer_size_near(dev, hw_params, &frames)<0)
+    {
+        perror("Count not set buffer_size");
+        return -1;
+    }
+
+    buf_size = frames*channels*bits/fragments;
+
+    if(snd_pcm_hw_params(dev, hw_params)<0)
+    {
+        perror("Count not set HW params");
+        return -1;
+    }
+
+    return 0;
+    
 }
