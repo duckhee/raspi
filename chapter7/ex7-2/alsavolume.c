@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     snd_mixer_selem_id_set_index(id, mix_index);
     snd_mixer_selem_id_set_name(id, mix_name);
 
-    elen = snd_mixer_find_selem(mixer, id);
+    elem = snd_mixer_find_selem(mixer, id);
 
     outVal = (outVal * (maxVal-minVal)/(long)(100-1));
     snd_mixer_selem_set_playback_volume_range(elem, minVal, maxVal);
