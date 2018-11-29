@@ -62,7 +62,7 @@ int setupDSP(snd_pcm_t *dev, int buf_size, int format, int sampleRate, int chann
     snd_pcm_hw_params_t *hw_params;
     snd_pcm_uframes_t frames;
     int fragments = FRAGMENT;
-    int bits = (formant == SND_PCM_FORMAT_S16_LE) ? 2 : 1;
+    int bits = (format == SND_PCM_FORMAT_S16_LE) ? 2 : 1;
 
     if(snd_pcm_hw_params_malloc(&hw_params)<0)
     {
@@ -76,7 +76,7 @@ int setupDSP(snd_pcm_t *dev, int buf_size, int format, int sampleRate, int chann
         return -1;
     }
 
-    if(snd_pcm_hw_params_set_access(dec, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED)<0)
+    if(snd_pcm_hw_params_set_access(dev, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED)<0)
     {
         perror("Cound not set access type");
         return -1;
@@ -87,7 +87,7 @@ int setupDSP(snd_pcm_t *dev, int buf_size, int format, int sampleRate, int chann
         return -1;
     }
 
-    if(snd_pcm_hw_params_set_rate_near(dev, hw_params, &samplerate, 0)<0)
+    if(snd_pcm_hw_params_set_rate_near(dev, hw_params, &sampleRate, 0)<0)
     {
         perror("Count not set fragments");
         return -1;
@@ -109,5 +109,5 @@ int setupDSP(snd_pcm_t *dev, int buf_size, int format, int sampleRate, int chann
     }
 
     return 0;
-    
+
 }

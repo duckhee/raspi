@@ -4,7 +4,10 @@ SRCS = alsapcm.c
 
 TARGET = alsapcm
 
-CFLAGS = 
+CFLAGS = -lasound -lm
 
 all:
-	$(CC) -o $(TARGET) $(SRCS)
+	$(CC) -o $(TARGET) $(SRCS) $(CFLAGS)
+
+clean:
+	rm -f $(TARGET)
