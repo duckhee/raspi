@@ -7,7 +7,7 @@ TARGET = ex7_5
 CFLAGS = 
 
 all:
-	$(CC) -o $(SRCS) $(TARGET) $(CFLAGS)
+	$(CC) -o $(TARGET) $(SRCS) $(CFLAGS)
 
 clean:
 	rm -f $(TARGET)
