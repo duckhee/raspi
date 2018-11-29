@@ -10,7 +10,7 @@
 
 typedef unsigned char ubyte;
 
-unsigned short makepixel((unsigned char r, unsigned char g, unsigned char b))
+unsigned short makepixel(unsigned char r, unsigned char g, unsigned char b)
 {
     return (unsigned short)(((r>>3)<<11) | ((g>>2)<<5) | (b>>3));
 }
