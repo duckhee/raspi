@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <linux/fb.h>
-#include <sys/iojctl.h>
+#include <sys/ioctl.h>
 
 #define FBDEVICE   "/dev/fb0"
 
