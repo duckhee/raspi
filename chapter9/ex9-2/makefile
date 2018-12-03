@@ -1,4 +1,4 @@
-KDIR = /lib/modules/3.18.7-v7/build
+KDIR = /lib/modules/$(shell uname -r)/build
 
 obj-m := gpio_module.o
 

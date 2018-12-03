@@ -1,6 +1,6 @@
-KDIR = /lib/modules/3.18.7-v7/build
+KDIR = /lib/modules/$(shell uname -r)/build
 
-obj-m := ex9_1.o
+obj-m := gpio_module.o
 
 default:
 	$(MAKE) -C $(KDIR) M=$$PWM modules
